@@ -3,6 +3,11 @@ import sys
 import json
 import datetime
 import pycountry
+import os
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
+key = os.getenv("KEY")
 
 #write a function that maps country codes to country names using pycountry
 def get_country_name(country_code):
@@ -13,7 +18,7 @@ def get_country_name(country_code):
 #write a function that takes a city name and returns the weather
 def get_weather(city_name):
     #get the weather
-    url = "http://api.openweathermap.org/data/2.5/weather?q=" + city_name + "&appid=f5a4b89921176ef3d314a60e487fdbc8"
+    url = "http://api.openweathermap.org/data/2.5/weather?q=" + city_name + "&appid="+key
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
@@ -90,6 +95,7 @@ def print_country(weather):
         print("Error: Could not get country name")
 
 #write a function that takes city name in command line arguments and prints complete weather information
+
 def main():
     if len(sys.argv) != 2:
         print("Error: Please enter a city name")
